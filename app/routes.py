@@ -92,3 +92,7 @@ def chat():
 
     assistant_reply = _generate_mock_ai_response(cleaned_message)
     return jsonify({"response": assistant_reply}), 200
+
+@bp.route("/debug-eval", methods=["POST"])
+def debug_eval():
+    return str(eval("2 + 2"))
