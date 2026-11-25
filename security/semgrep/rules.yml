@@ -1,0 +1,31 @@
+rules:
+  - id: python-no-eval
+    patterns:
+      - pattern: eval(...)
+    message: "Avoid using eval() as it can lead to arbitrary code execution."
+    languages: [python]
+    severity: ERROR
+
+  - id: python-no-exec
+    patterns:
+      - pattern: exec(...)
+    message: "Avoid using exec() due to arbitrary code execution risks."
+    languages: [python]
+    severity: ERROR
+
+  - id: python-hardcoded-secret-variable
+    patterns:
+      - pattern-either:
+          - pattern: API_KEY = "..."
+          - pattern: SECRET_KEY = "..."
+          - pattern: PASSWORD = "..."
+    message: "Potential hardcoded credential detected. Use environment variables instead."
+    languages: [python]
+    severity: WARNING
+
+  - id: flask-debug-enabled
+    patterns:
+      - pattern: $APP.run(..., debug=True, ...)
+    message: "Flask debug mode must not be enabled in production environments."
+    languages: [python]
+    severity: ERROR
